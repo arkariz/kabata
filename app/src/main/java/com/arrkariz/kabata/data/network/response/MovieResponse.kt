@@ -1,9 +1,9 @@
 package com.arrkariz.kabata.data.network.response
 
-import com.arrkariz.kabata.domain.model.MovieListEntity
+import com.arrkariz.kabata.domain.model.MovieEntity
 import com.google.gson.annotations.SerializedName
 
-data class MovieListResponse(
+data class MovieResponse(
 	@field:SerializedName("id")
 	val id: Int,
 
@@ -17,8 +17,8 @@ data class MovieListResponse(
 	val image: String,
 )
 
-fun MovieListResponse.toMovieListEntity(): MovieListEntity {
-	return MovieListEntity(
+fun MovieResponse.toMovieEntity(): MovieEntity {
+	return MovieEntity(
 		id = id,
 		title = title,
 		url = url,

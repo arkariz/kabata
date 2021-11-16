@@ -1,6 +1,5 @@
 package com.arrkariz.kabata.presentation.compose
 
-import android.graphics.drawable.Drawable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -9,27 +8,18 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.ImagePainter
 import coil.compose.rememberImagePainter
 import com.arrkariz.kabata.R
-import com.arrkariz.kabata.domain.model.MovieListEntity
-import com.arrkariz.kabata.domain.model.TokenEntity
+import com.arrkariz.kabata.domain.model.MovieEntity
 import com.arrkariz.kabata.presentation.HomeViewModel
 import com.arrkariz.kabata.presentation.ui.theme.Typography
 import org.koin.androidx.compose.getViewModel
@@ -52,7 +42,7 @@ fun HomeScreen(){
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 HeaderApp("Alex")
-                NewMovie("Test", "https://picsum.photos/300/300")
+                NewMovie(viewModel)
                 PopularMovie(viewModel)
             }
         }
@@ -85,7 +75,8 @@ fun HeaderApp(name: String){
 }
 
 @Composable
-fun NewMovie(title:String, imgUrl: String){
+fun NewMovie(viewModel: HomeViewModel){
+    val state = viewModel.newMovieState.value
     Column(
         Modifier.padding(24.dp)
             .fillMaxWidth()
@@ -100,7 +91,7 @@ fun NewMovie(title:String, imgUrl: String){
             Modifier.height(190.dp)
         ){
             Image(
-                painter = rememberImagePainter(imgUrl),
+                painter = rememberImagePainter(state.movie.image),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize()
@@ -108,7 +99,7 @@ fun NewMovie(title:String, imgUrl: String){
             )
         }
 
-        Text(title,
+        Text(state.movie.title,
             style = Typography.h2,
             modifier = Modifier.align(Alignment.Start).padding(top = 10.dp)
         )
@@ -144,8 +135,8 @@ fun PopularMovie(viewModel: HomeViewModel){
 @ExperimentalCoilApi
 @Composable
 private fun MovieItem(
-    movie: MovieListEntity,
-    onItemClick: (MovieListEntity) -> Unit
+    movie: MovieEntity,
+    onItemClick: (MovieEntity) -> Unit
     ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
