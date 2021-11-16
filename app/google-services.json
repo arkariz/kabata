@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "509191074584",
+    "project_id": "pahemovienotification",
+    "storage_bucket": "pahemovienotification.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:509191074584:android:9366a7f7fbf10d9dba646d",
+        "android_client_info": {
+          "package_name": "com.arrkariz.kabata"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "509191074584-rpimom46cgebv23lmfblnujapfuk8ml0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuPB6Ze6AKd-RUq2GbgX3zvgxfGssYQ2U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "509191074584-rpimom46cgebv23lmfblnujapfuk8ml0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
