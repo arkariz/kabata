@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface MovieUseCase {
     suspend fun postToken(token: TokenEntity)
-    suspend fun getMovieList(): Flow<Resources<List<MovieListEntity>>>
+    fun getMovieList(): Flow<Resources<List<MovieListEntity>>>
 }

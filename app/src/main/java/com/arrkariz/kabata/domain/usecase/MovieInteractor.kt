@@ -12,7 +12,8 @@ import java.io.IOException
 
 class MovieInteractor(private val movieRepository: IMovieRepository): MovieUseCase {
     override suspend fun postToken(token: TokenEntity) = movieRepository.postToken(token)
-    override suspend fun getMovieList(): Flow<Resources<List<MovieListEntity>>> = flow {
+
+    override fun getMovieList(): Flow<Resources<List<MovieListEntity>>> = flow {
         try {
             emit(Resources.Loading())
             val movies = movieRepository.getMovieList().map { it.toMovieListEntity() }

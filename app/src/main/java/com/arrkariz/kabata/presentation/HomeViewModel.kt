@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
+import com.arrkariz.kabata.domain.model.MovieListEntity
 import com.arrkariz.kabata.domain.model.MovieListState
 import com.arrkariz.kabata.domain.model.TokenEntity
 import com.arrkariz.kabata.domain.usecase.MovieUseCase
@@ -15,34 +16,35 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val movieUseCase: MovieUseCase): ViewModel() {
+
     private val _state = mutableStateOf(MovieListState())
     val state : State<MovieListState> = _state
 
     init {
-        fetchFirebaseToken()
         getMovies()
     }
 
     private fun getMovies(){
-        viewModelScope.launch {
-            movieUseCase.getMovieList().onEach {
-                when(it) {
-                    is Resources.Success -> {
-                        _state.value = MovieListState(movies = it.data ?: emptyList())
-                    }
-                    is Resources.Error -> {
-                        _state.value = MovieListState(error = it.message ?: "An unexpected error")
-                    }
-                    is Resources.Loading -> {
-                        _state.value = MovieListState(isLoading = true)
-                    }
+        movieUseCase.getMovieList().onEach {
+            when(it) {
+                is Resources.Success -> {
+                    _state.value = MovieListState(movies = it.data ?: emptyList())
+                }
+                is Resources.Error -> {
+                    _state.value = MovieListState(error = it.message ?: "An unexpected error")
+                }
+                is Resources.Loading -> {
+                    _state.value = MovieListState(isLoading = true)
                 }
             }
-        }
+        }.launchIn(viewModelScope)
     }
 
     private fun sendToken(token: String){

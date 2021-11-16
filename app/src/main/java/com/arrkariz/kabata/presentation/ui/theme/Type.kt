@@ -17,7 +17,13 @@ val Typography = Typography(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,
         fontSize = 24.sp
+    ),
+    h2 = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Normal,
+        fontSize = 18.sp
     )
+)
     /* Other def
     ault text styles to override
     button = TextStyle(
@@ -31,4 +37,3 @@ val Typography = Typography(
         fontSize = 12.sp
     )
     */
-)

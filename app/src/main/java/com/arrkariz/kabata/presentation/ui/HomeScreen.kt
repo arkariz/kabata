@@ -9,6 +9,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,8 +21,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.ImagePainter
 import coil.compose.rememberImagePainter
 import com.arrkariz.kabata.R
 import com.arrkariz.kabata.domain.model.MovieListEntity
@@ -85,14 +90,14 @@ fun NewMovie(title:String, imgUrl: String){
         Modifier.padding(24.dp)
             .fillMaxWidth()
     ){
-        Text("New Movie",
+        Text("New Release",
             modifier = Modifier.align(Alignment.Start)
                                 .padding(bottom = 16.dp),
             style = Typography.h1
         )
 
         Box(
-            Modifier.height(200.dp)
+            Modifier.height(190.dp)
         ){
             Image(
                 painter = rememberImagePainter(imgUrl),
@@ -103,26 +108,40 @@ fun NewMovie(title:String, imgUrl: String){
             )
         }
 
-        Text(title, Modifier.align(Alignment.Start).padding(top = 10.dp), fontSize = 16.sp)
+        Text(title,
+            style = Typography.h2,
+            modifier = Modifier.align(Alignment.Start).padding(top = 10.dp)
+        )
     }
 }
 
+@ExperimentalCoilApi
 @Composable
 fun PopularMovie(viewModel: HomeViewModel){
     val state = viewModel.state.value
-    LazyRow(modifier = Modifier.wrapContentSize(unbounded = true)){
-        items(state.movies){ movies ->
-            MovieItem(
-                movie = movies,
-                onItemClick = {
+    Column {
+        Text(
+            "Popular Movies",
+            style = Typography.h1,
+            modifier = Modifier
+                .align(Alignment.Start)
+                .padding(bottom = 16.dp, start = 24.dp)
+        )
+        LazyRow{
+            items(state.movies){ movies ->
+                MovieItem(
+                    movie = movies,
+                    onItemClick = {
 
-                }
-            )
+                    }
+                )
 
+            }
         }
     }
 }
 
+@ExperimentalCoilApi
 @Composable
 private fun MovieItem(
     movie: MovieListEntity,
@@ -130,42 +149,35 @@ private fun MovieItem(
     ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.clickable{ onItemClick(movie) }
+        modifier = Modifier
+            .padding(start = 16.dp, end = 16.dp)
+            .size(height = 280.dp, width = 140.dp)
+            .clickable{ onItemClick(movie) }
     ){
         Box(
             Modifier.size(height = 230.dp, width = 140.dp)
         ){
-            Image(
-                painter = rememberImagePainter(movie.image),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
-                    .clip(RoundedCornerShape(7.dp))
-            )
+            val painter = rememberImagePainter(movie.image)
+            if (painter.state is ImagePainter.State.Loading){
+                CircularProgressIndicator()
+            } else{
+                Image(
+                    painter = rememberImagePainter(movie.image),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                        .clip(RoundedCornerShape(7.dp))
+                )
+            }
+
         }
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.padding(top = 9.dp)
-        ){
-            Card(
-                backgroundColor = Color(0xFF242424),
-                modifier = Modifier.clip(RoundedCornerShape(3.dp))
-            ){
-                Text("21", Modifier.padding(2.dp))
-            }
-            Card(
-                backgroundColor = Color(0xFF242424),
-                modifier = Modifier.clip(RoundedCornerShape(3.dp))
-            ){
-                Text("horror", Modifier.padding(2.dp))
-            }
-            Card(
-                backgroundColor = Color(0xFF242424),
-                modifier = Modifier.clip(RoundedCornerShape(3.dp))
-            ){
-                Text("rating", Modifier.padding(2.dp))
-            }
-        }
-        Text(movie.title, fontSize = 26.sp)
+
+        Text(
+            movie.title,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            style = Typography.h2,
+            modifier = Modifier.padding(top = 8.dp)
+        )
     }
 }
