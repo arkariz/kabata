@@ -23,12 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".presentation.MainActivity"
-            android:exported="true"
-            android:label="YourAppName">
-        </activity>
-
         <service
             android:name=".utils.firebase.MyFirebaseMessagingService"
             android:exported="false">
