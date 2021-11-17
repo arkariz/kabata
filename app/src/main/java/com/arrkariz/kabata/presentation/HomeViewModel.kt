@@ -15,6 +15,8 @@ import com.arrkariz.kabata.utils.Resources
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -28,6 +30,7 @@ class HomeViewModel(private val movieUseCase: MovieUseCase): ViewModel() {
     val newMovieState: State<MovieState> = _newMovieState
 
     init {
+        fetchFirebaseToken()
         getNewMovie()
         getMovies()
     }
@@ -64,6 +67,10 @@ class HomeViewModel(private val movieUseCase: MovieUseCase): ViewModel() {
         }.launchIn(viewModelScope)
     }
 
+    private suspend fun getToken(): List<TokenEntity>{
+       return movieUseCase.getToken()
+    }
+
     private fun sendToken(token: String){
         val tokenEntity = TokenEntity(token = token)
         viewModelScope.launch {
@@ -74,15 +81,27 @@ class HomeViewModel(private val movieUseCase: MovieUseCase): ViewModel() {
     private fun fetchFirebaseToken() {
         viewModelScope.launch {
             delay(200L)
-            FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    Log.w(ContentValues.TAG, "Fetching FCM registration token failed", task.exception)
-                    return@OnCompleteListener
-                }
-                task.result?.let {
-                    sendToken(it)
-                }
-            })
+            val tokens = getToken()
+            if (tokens.isNullOrEmpty()){
+                Log.d("SendToken", "Empty Token")
+            } else {
+                FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+                    if (!task.isSuccessful) {
+                        Log.w(ContentValues.TAG, "Fetching FCM registration token failed", task.exception)
+                        return@OnCompleteListener
+                    }
+                    task.result?.let {
+                        for (token in tokens){
+                            if (token.token != it){
+                                Log.d("SendToken", "Token successfully Post")
+                                sendToken(it)
+                            } else{
+                                Log.d("SendToken", "Token Already Posted")
+                            }
+                        }
+                    }
+                })
+            }
         }
     }
 }
