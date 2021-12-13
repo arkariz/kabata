@@ -15,6 +15,9 @@ data class MovieResponse(
 
 	@field:SerializedName("image")
 	val image: String,
+
+	@field:SerializedName("star")
+	val star: String,
 )
 
 fun MovieResponse.toMovieEntity(): MovieEntity {
@@ -22,6 +25,7 @@ fun MovieResponse.toMovieEntity(): MovieEntity {
 		id = id,
 		title = title,
 		url = url,
-		image = image
+		image = image,
+		star = star,
 	)
 }

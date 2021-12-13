@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
+
 class HomeViewModel(private val movieUseCase: MovieUseCase): ViewModel() {
 
     private val _state = mutableStateOf(MovieListState())
@@ -39,10 +40,10 @@ class HomeViewModel(private val movieUseCase: MovieUseCase): ViewModel() {
         movieUseCase.getMovieList().onEach {
             when(it) {
                 is Resources.Success -> {
-                    _state.value = MovieListState(movies = it.data ?: emptyList())
+                    _state.value = MovieListState(movies = it.data ?: emptyList(), isLoading = false)
                 }
                 is Resources.Error -> {
-                    _state.value = MovieListState(error = it.message ?: "An unexpected error")
+                    _state.value = MovieListState(error = it.message ?: "An unexpected error", isLoading = false)
                 }
                 is Resources.Loading -> {
                     _state.value = MovieListState(isLoading = true)
@@ -55,10 +56,10 @@ class HomeViewModel(private val movieUseCase: MovieUseCase): ViewModel() {
         movieUseCase.getNewestMovie().onEach {
             when(it) {
                 is Resources.Success -> {
-                    _newMovieState.value = MovieState(movie = it.data ?: MovieEntity(0, "", "", ""))
+                    _newMovieState.value = MovieState(movie = it.data ?: MovieEntity(0, "", "", "", "0.0"), isLoading = false)
                 }
                 is Resources.Error -> {
-                    _newMovieState.value = MovieState(error = it.message ?: "An unexpected error")
+                    _newMovieState.value = MovieState(error = it.message ?: "An unexpected error", isLoading = false)
                 }
                 is Resources.Loading -> {
                     _newMovieState.value = MovieState(isLoading = true)
@@ -66,6 +67,7 @@ class HomeViewModel(private val movieUseCase: MovieUseCase): ViewModel() {
             }
         }.launchIn(viewModelScope)
     }
+
 
     private suspend fun getToken(): List<TokenEntity>{
        return movieUseCase.getToken()
