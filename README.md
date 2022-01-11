@@ -18,3 +18,5 @@ KATA is android application build for movie enthusiast. This app mainly build us
 1. [Backend](https://github.com/arkariz/moviephRestfullApi) Backend build using Django Rest API <br />
 2. [Crawler](https://github.com/arkariz/moviephcrawler) Crawler to scrape movies using Selenium<br />
 
+### Preview
+![alt text](https://1drv.ms/u/s!AnJpN56h-7sVgZY3MNX1pSYD9HSeFQ?e=BUh2e8)
