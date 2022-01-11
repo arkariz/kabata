@@ -19,4 +19,4 @@ KATA is android application build for movie enthusiast. This app mainly build us
 2. [Crawler](https://github.com/arkariz/moviephcrawler) Crawler to scrape movies using Selenium<br />
 
 ### Preview
-![alt text](https://1drv.ms/u/s!AnJpN56h-7sVgZY3MNX1pSYD9HSeFQ?e=BUh2e8)
+![alt text](https://imgur.com/a/4vbPM61)
