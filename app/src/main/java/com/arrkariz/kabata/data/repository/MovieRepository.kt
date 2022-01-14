@@ -13,11 +13,11 @@ class MovieRepository(private val apiService: ApiService): IMovieRepository {
 
     override suspend fun getToken(): Response<List<TokenResponse>> = apiService.getToken()
 
-    override suspend fun getMovieList(): List<MovieResponse> {
+    override suspend fun getMovieList(): Response<List<MovieResponse>> {
         return apiService.getMovieList()
     }
 
-    override suspend fun getNewestMovie(): MovieResponse {
+    override suspend fun getNewestMovie(): Response<MovieResponse> {
         return apiService.getNewestMovie()
     }
 }

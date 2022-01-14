@@ -41,7 +41,7 @@ fun popularMovie(viewModel: HomeViewModel) {
 //        StateContent(state)
 
         LazyRow {
-            items(state.movies.reversed()) { movies ->
+            items(state.movies.reversed().take(10)) { movies ->
                 movieItem(
                     movie = movies,
                     onItemClick = {

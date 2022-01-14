@@ -16,8 +16,8 @@ interface ApiService {
     suspend fun getToken(): Response<List<TokenResponse>>
 
     @GET("refresh_movie/")
-    suspend fun getMovieList(): List<MovieResponse>
+    suspend fun getMovieList(): Response<List<MovieResponse>>
 
     @GET("newest_movie/")
-    suspend fun getNewestMovie(): MovieResponse
+    suspend fun getNewestMovie(): Response<MovieResponse>
 }

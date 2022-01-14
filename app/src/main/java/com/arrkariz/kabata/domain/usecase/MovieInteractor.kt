@@ -38,8 +38,12 @@ class MovieInteractor(private val movieRepository: IMovieRepository): MovieUseCa
     override fun getMovieList(): Flow<Resources<List<MovieEntity>>> = flow {
         try {
             emit(Resources.Loading())
-            val movies = movieRepository.getMovieList().map { it.toMovieEntity() }
-            emit(Resources.Success(movies))
+            val movies = movieRepository.getMovieList()
+            if (movies.code() == 204){
+                emit(Resources.Error("There is no new movie yet"))
+            } else {
+                emit(Resources.Success(movies.body()!!.map { it.toMovieEntity() }))
+            }
         } catch (e: HttpException){
             emit(Resources.Error(e.localizedMessage ?: "An unexpected error occurred"))
         } catch (e: IOException){
@@ -50,8 +54,12 @@ class MovieInteractor(private val movieRepository: IMovieRepository): MovieUseCa
     override fun getNewestMovie(): Flow<Resources<MovieEntity>> = flow {
         try {
             emit(Resources.Loading())
-            val movie = movieRepository.getNewestMovie().toMovieEntity()
-            emit(Resources.Success(movie))
+            val movie = movieRepository.getNewestMovie()
+            if (movie.code() == 204){
+                emit(Resources.Error("There is no new movie yet"))
+            } else {
+                emit(Resources.Success(movie.body()!!.toMovieEntity()))
+            }
         } catch (e: HttpException){
             emit(Resources.Error(e.localizedMessage ?: "An unexpected error occurred"))
         } catch (e: IOException){

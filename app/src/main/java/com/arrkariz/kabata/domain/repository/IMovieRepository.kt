@@ -10,7 +10,7 @@ interface IMovieRepository {
 
     suspend fun postToken(token: TokenEntity)
     suspend fun getToken(): Response<List<TokenResponse>>
-    suspend fun getMovieList(): List<MovieResponse>
-    suspend fun getNewestMovie(): MovieResponse
+    suspend fun getMovieList(): Response<List<MovieResponse>>
+    suspend fun getNewestMovie(): Response<MovieResponse>
 
 }
