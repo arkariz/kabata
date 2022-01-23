@@ -1,12 +1,11 @@
 package com.arrkariz.kabata.di
 
-import com.arrkariz.kabata.data.network.ApiService
-import com.arrkariz.kabata.data.repository.MovieRepository
-import com.arrkariz.kabata.domain.repository.IMovieRepository
-import com.arrkariz.kabata.domain.usecase.MovieInteractor
-import com.arrkariz.kabata.domain.usecase.MovieUseCase
-import com.arrkariz.kabata.presentation.HomeViewModel
-import com.arrkariz.kabata.presentation.MainViewModel
+import com.arrkariz.kabata.features.moviesexplore.data.network.ApiService
+import com.arrkariz.kabata.features.moviesexplore.data.repository.MovieRepository
+import com.arrkariz.kabata.features.moviesexplore.domain.repository.IMovieRepository
+import com.arrkariz.kabata.features.moviesexplore.domain.usecase.MovieInteractor
+import com.arrkariz.kabata.features.moviesexplore.domain.usecase.MovieUseCase
+import com.arrkariz.kabata.features.moviesexplore.presentation.state.home.HomeViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -42,6 +41,5 @@ val useCaseModule = module {
 }
 
 val viewModelModule = module {
-    viewModel { MainViewModel(get()) }
     viewModel { HomeViewModel(get()) }
 }
