@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kabata">
         <activity
-            android:name=".presentation.HomeActivity"
+            android:name="com.arrkariz.kabata.features.moviesexplore.presentation.HomeActivity"
             android:exported="true"
             android:label="@string/title_activity_home"
             android:theme="@style/Theme.Kabata.NoActionBar">
