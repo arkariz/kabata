@@ -17,30 +17,37 @@ class MovieInteractor(private val movieRepository: IMovieRepository): MovieUseCa
     override suspend fun postToken(token: TokenEntity) = movieRepository.postToken(token)
 
     override suspend fun getToken(): List<TokenEntity> {
-        val response = movieRepository.getToken()
-        return if (response.isSuccessful){
-            val responseCode = response.code()
-            Log.d("TokenResponse", "Token Receive: $responseCode")
-            if (response.body() != null){
-                response.body()!!.map { it.toTokenEntity() }
-            } else {
-                Log.d("TokenResponse", "Response Empty")
+        try{
+            val response = movieRepository.getToken()
+            return if (response.isSuccessful){
+                val responseCode = response.code()
+                Log.d("TokenResponse", "Token Receive: $responseCode")
+                if (response.body() != null){
+                    response.body()!!.map { it.toTokenEntity() }
+                } else {
+                    Log.d("TokenResponse", "Response Empty")
+                    emptyList()
+                }
+            } else{
+                val responseCode = response.code()
+                Log.d("TokenResponse", responseCode.toString())
                 emptyList()
             }
-        } else{
-            val responseCode = response.code()
-            Log.d("TokenResponse", responseCode.toString())
-            emptyList()
+        } catch (e: HttpException){
+            return emptyList()
+        } catch (e: IOException){
+            return emptyList()
         }
+
     }
 
     override fun getMovieList(): Flow<Resources<List<MovieEntity>>> = flow {
         try {
-            emit(Resources.Loading())
+            emit(Resources.Loading(message = "loading"))
             val movies = movieRepository.getMovieList()
             if (movies.code() == 204){
                 emit(Resources.Empty("There is no new movie yet"))
-            } else {
+            } else if (movies.code() == 200){
                 emit(Resources.Success(movies.body()!!.map { it.toMovieEntity() }))
             }
         } catch (e: HttpException){
