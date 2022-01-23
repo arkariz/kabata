@@ -43,6 +43,9 @@ class HomeViewModel(private val movieUseCase: MovieUseCase): ViewModel() {
                 is Resources.Loading -> {
                     _state.value = MovieListState(isLoading = true)
                 }
+                is Resources.Empty -> {
+                    _state.value = MovieListState(empty = it.message ?: "There is no new movie yet")
+                }
             }
         }.launchIn(viewModelScope)
     }
@@ -59,6 +62,7 @@ class HomeViewModel(private val movieUseCase: MovieUseCase): ViewModel() {
                 is Resources.Loading -> {
                     _newMovieState.value = MovieState(isLoading = true)
                 }
+                is Resources.Empty -> _newMovieState.value = MovieState(empty = it.message ?: "There is no new movie yet")
             }
         }.launchIn(viewModelScope)
     }

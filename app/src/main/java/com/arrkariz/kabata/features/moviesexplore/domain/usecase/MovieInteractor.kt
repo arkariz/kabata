@@ -39,7 +39,7 @@ class MovieInteractor(private val movieRepository: IMovieRepository): MovieUseCa
             emit(Resources.Loading())
             val movies = movieRepository.getMovieList()
             if (movies.code() == 204){
-                emit(Resources.Error("There is no new movie yet"))
+                emit(Resources.Empty("There is no new movie yet"))
             } else {
                 emit(Resources.Success(movies.body()!!.map { it.toMovieEntity() }))
             }

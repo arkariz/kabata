@@ -67,4 +67,15 @@ fun StateContent(state: MovieState) {
             )
         }
     }
+    if (state.empty.isNotEmpty()) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                state.empty
+            )
+        }
+    }
 }
