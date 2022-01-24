@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.arrkariz.kabata.features.moviesexplore.domain.model.MovieEntity
 import com.arrkariz.kabata.features.moviesexplore.domain.model.TokenEntity
+import com.arrkariz.kabata.features.moviesexplore.domain.usecase.FcmUseCase
 import com.arrkariz.kabata.features.moviesexplore.domain.usecase.MovieUseCase
 import com.arrkariz.kabata.utils.Resources
 import com.google.android.gms.tasks.OnCompleteListener
@@ -17,7 +18,10 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 
-class HomeViewModel(private val movieUseCase: MovieUseCase): ViewModel() {
+class HomeViewModel(
+    private val movieUseCase: MovieUseCase,
+    private val FcmUseCase: FcmUseCase
+    ): ViewModel() {
 
     private val _state = mutableStateOf(MovieListState())
     val state : State<MovieListState> = _state
@@ -69,13 +73,13 @@ class HomeViewModel(private val movieUseCase: MovieUseCase): ViewModel() {
 
 
     private suspend fun getToken(): List<TokenEntity>{
-       return movieUseCase.getToken()
+       return FcmUseCase.getToken()
     }
 
     private fun sendToken(token: String){
         val tokenEntity = TokenEntity(token = token)
         viewModelScope.launch {
-            movieUseCase.postToken(tokenEntity)
+            FcmUseCase.postToken(tokenEntity)
         }
     }
 
