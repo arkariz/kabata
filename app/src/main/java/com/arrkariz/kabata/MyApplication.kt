@@ -1,10 +1,7 @@
 package com.arrkariz.kabata
 
 import android.app.Application
-import com.arrkariz.kabata.di.networkModule
-import com.arrkariz.kabata.di.repositoryModule
-import com.arrkariz.kabata.di.useCaseModule
-import com.arrkariz.kabata.di.viewModelModule
+import com.arrkariz.kabata.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
 
@@ -16,6 +13,7 @@ class MyApplication : Application() {
             modules(
                 listOf(
                     networkModule,
+                    networkDataSourceModule,
                     repositoryModule,
                     useCaseModule,
                     viewModelModule

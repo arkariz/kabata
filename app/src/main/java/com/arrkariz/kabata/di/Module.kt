@@ -1,6 +1,7 @@
 package com.arrkariz.kabata.di
 
 import com.arrkariz.kabata.features.moviesexplore.data.network.ApiService
+import com.arrkariz.kabata.features.moviesexplore.data.network.NetworkDataSource
 import com.arrkariz.kabata.features.moviesexplore.data.repository.MovieRepository
 import com.arrkariz.kabata.features.moviesexplore.domain.repository.IMovieRepository
 import com.arrkariz.kabata.features.moviesexplore.domain.usecase.MovieInteractor
@@ -30,6 +31,10 @@ val networkModule = module {
             .build()
         retrofit.create(ApiService::class.java)
     }
+}
+
+val networkDataSourceModule = module {
+    single { NetworkDataSource(get())}
 }
 
 val repositoryModule = module {

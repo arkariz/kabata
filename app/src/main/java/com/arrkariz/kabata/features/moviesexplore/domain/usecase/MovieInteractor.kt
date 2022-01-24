@@ -61,15 +61,21 @@ class MovieInteractor(private val movieRepository: IMovieRepository): MovieUseCa
         try {
             emit(Resources.Loading())
             val movie = movieRepository.getNewestMovie()
-            if (movie.code() == 204){
-                emit(Resources.Error("There is no new movie yet"))
-            } else {
-                emit(Resources.Success(movie.body()!!.toMovieEntity()))
+            if (movie.isSuccessful){
+                if (movie.code() == 204){
+                    emit(Resources.Empty("There is no new movie yet"))
+                } else {
+                    emit(Resources.Success(movie.body()!!.toMovieEntity()))
+                }
+            } else{
+                throw IOException()
             }
         } catch (e: HttpException){
             emit(Resources.Error(e.localizedMessage ?: "An unexpected error occurred"))
         } catch (e: IOException){
             emit(Resources.Error("Couldn't reach server"))
+        } catch (e: Exception) {
+            emit(Resources.Error("An unexpected error occurred"))
         }
     }
 }
