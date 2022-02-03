@@ -4,34 +4,37 @@ import android.util.Log
 import com.arrkariz.kabata.features.moviesexplore.data.network.response.toTokenEntity
 import com.arrkariz.kabata.features.moviesexplore.domain.model.TokenEntity
 import com.arrkariz.kabata.features.moviesexplore.domain.repository.IMovieRepository
+import com.arrkariz.kabata.utils.Resources
 import retrofit2.HttpException
 import java.io.IOException
+import java.lang.Exception
 
 class FcmInteractor (private val movieRepository: IMovieRepository) : FcmUseCase {
 
     override suspend fun postToken(token: TokenEntity) = movieRepository.postToken(token)
 
-    override suspend fun getToken(): List<TokenEntity> {
+    override suspend fun getToken(): Resources<List<TokenEntity>> {
         try{
             val response = movieRepository.getToken()
             return if (response.isSuccessful){
                 val responseCode = response.code()
                 Log.d("TokenResponse", "Token Receive: $responseCode")
                 if (response.body() != null){
-                    response.body()!!.map { it.toTokenEntity() }
+                    val result = response.body()!!.map { it.toTokenEntity() }
+                    Resources.Success(result)
                 } else {
                     Log.d("TokenResponse", "Response Empty")
-                    emptyList()
+                    Resources.Empty("Empty Token")
                 }
             } else{
                 val responseCode = response.code()
                 Log.d("TokenResponse", responseCode.toString())
-                emptyList()
+                throw Exception()
             }
         } catch (e: HttpException){
-            return emptyList()
+            return Resources.Error(e.localizedMessage ?: "An unexpected error occurred")
         } catch (e: IOException){
-            return emptyList()
+            return Resources.Error("Couldn't reach server")
         }
 
     }

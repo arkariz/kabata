@@ -5,7 +5,6 @@ import com.arrkariz.kabata.features.moviesexplore.data.network.response.TokenRes
 import com.arrkariz.kabata.features.moviesexplore.domain.model.TokenEntity
 import com.arrkariz.kabata.features.moviesexplore.domain.repository.IMovieRepository
 import com.arrkariz.kabata.utils.GetMovieCase
-import kotlinx.coroutines.delay
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.HttpException

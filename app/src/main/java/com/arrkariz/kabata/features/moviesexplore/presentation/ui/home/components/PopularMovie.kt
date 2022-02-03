@@ -19,7 +19,6 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.ImagePainter
 import coil.compose.rememberImagePainter
 import com.arrkariz.kabata.features.moviesexplore.domain.model.MovieEntity
-import com.arrkariz.kabata.features.moviesexplore.presentation.compose.StateContent
 import com.arrkariz.kabata.features.moviesexplore.presentation.state.home.HomeViewModel
 import com.arrkariz.kabata.theme.Typography
 

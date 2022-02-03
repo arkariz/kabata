@@ -72,8 +72,19 @@ class HomeViewModel(
     }
 
 
-    private suspend fun getToken(): List<TokenEntity>{
-       return FcmUseCase.getToken()
+    suspend fun getToken(): List<TokenEntity>{
+        return when (val token = FcmUseCase.getToken()) {
+            is Resources.Success -> {
+                token.data!!
+            }
+            is Resources.Empty -> {
+                emptyList()
+            }
+            else -> {
+//                Log.d("SendToken", token.message!!)
+                emptyList()
+            }
+        }
     }
 
     private fun sendToken(token: String){

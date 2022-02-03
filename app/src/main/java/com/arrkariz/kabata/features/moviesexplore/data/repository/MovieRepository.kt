@@ -1,6 +1,5 @@
 package com.arrkariz.kabata.features.moviesexplore.data.repository
 
-import com.arrkariz.kabata.features.moviesexplore.data.network.ApiService
 import com.arrkariz.kabata.features.moviesexplore.data.network.NetworkDataSource
 import com.arrkariz.kabata.features.moviesexplore.data.network.response.MovieResponse
 import com.arrkariz.kabata.features.moviesexplore.data.network.response.TokenResponse

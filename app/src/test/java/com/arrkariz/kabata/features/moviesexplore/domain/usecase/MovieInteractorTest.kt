@@ -38,7 +38,7 @@ class MovieInteractorTest {
         val fakeMovieRepository = FakeMovieRepository(GetMovieCase.SUCCESS)
         val movieInteractor = MovieInteractor(fakeMovieRepository)
 
-        val res = listOf(Resources.Loading<List<MovieEntity>>(message = "loading") ,Resources.Success(movie))
+        val res = listOf(Resources.Loading(message = "loading") ,Resources.Success(movie))
         movieInteractor.getMovieList().test {
             for (i in res){
                 when (val emission = awaitItem()) {
@@ -117,7 +117,7 @@ class MovieInteractorTest {
         val fakeMovieRepository = FakeMovieRepository(GetMovieCase.SUCCESS)
         val movieInteractor = MovieInteractor(fakeMovieRepository)
 
-        val res = listOf(Resources.Loading<List<MovieEntity>>(message = "loading") ,Resources.Success(movie))
+        val res = listOf(Resources.Loading(message = "loading") ,Resources.Success(movie))
         movieInteractor.getNewestMovie().test {
             for (i in res){
                 when (val emission = awaitItem()) {

@@ -12,11 +12,7 @@ class NetworkDataSource(
 
     suspend fun getToken(): Response<List<TokenResponse>> = apiService.getToken()
 
-    suspend fun getMovieList(): Response<List<MovieResponse>> {
-        return apiService.getMovieList()
-    }
+    suspend fun getMovieList(): Response<List<MovieResponse>> = apiService.getMovieList()
 
-    suspend fun getNewestMovie(): Response<MovieResponse> {
-        return apiService.getNewestMovie()
-    }
+    suspend fun getNewestMovie(): Response<MovieResponse> =  apiService.getNewestMovie()
 }
