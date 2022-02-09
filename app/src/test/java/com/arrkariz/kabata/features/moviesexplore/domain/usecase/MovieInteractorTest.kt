@@ -29,7 +29,12 @@ class MovieInteractorTest {
             "test",
             "test",
             "test",
-            "test",)
+            "test",
+            "test",
+            "test",
+            "test",
+            "test",
+            "test")
         )
     }
 

@@ -30,7 +30,12 @@ class HomeViewModelTest {
                 "test",
                 "test",
                 "test",
-                "test",)
+                "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test")
 
         token = TokenEntity("test token")
     }

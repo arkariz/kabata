@@ -1,5 +1,6 @@
 package com.arrkariz.kabata.features.moviesexplore.presentation.ui.home
 
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -13,11 +14,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.ImagePainter
 import coil.compose.rememberImagePainter
+import com.arrkariz.kabata.features.detailmovie.presentation.DetailMovieActivity
+import com.arrkariz.kabata.features.detailmovie.presentation.DetailMovieActivity.Companion.EXTRA_MOVIE
 import com.arrkariz.kabata.features.moviesexplore.domain.model.MovieEntity
 import com.arrkariz.kabata.features.moviesexplore.presentation.state.home.HomeViewModel
 import com.arrkariz.kabata.theme.Typography
@@ -25,6 +29,7 @@ import com.arrkariz.kabata.theme.Typography
 @ExperimentalCoilApi
 @Composable
 fun popularMovie(viewModel: HomeViewModel) {
+    val context = LocalContext.current
     val state = viewModel.state.value
     Column(
         modifier = Modifier
@@ -45,7 +50,9 @@ fun popularMovie(viewModel: HomeViewModel) {
                 movieItem(
                     movie = movies,
                     onItemClick = {
-
+                        val intent = Intent(context, DetailMovieActivity::class.java)
+                        intent.putExtra(EXTRA_MOVIE, movies)
+                        context.startActivity(intent)
                     }
                 )
             }
@@ -85,7 +92,7 @@ private fun movieItem(
             }
         }
 
-        ratingStar(movie)
+        ratingStar(movie.star)
 
         Box(
             modifier = Modifier

@@ -10,7 +10,7 @@ import retrofit2.http.POST
 
 interface ApiService {
     @POST("token/")
-    suspend fun postToken(@Body token: TokenEntity)
+    suspend fun postToken(@Body token: TokenEntity): Response<TokenResponse>
 
     @GET("token/")
     suspend fun getToken(): Response<List<TokenResponse>>

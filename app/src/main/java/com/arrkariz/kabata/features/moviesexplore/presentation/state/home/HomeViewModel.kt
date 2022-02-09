@@ -58,7 +58,7 @@ class HomeViewModel(
         movieUseCase.getNewestMovie().onEach {
             when(it) {
                 is Resources.Success -> {
-                    _newMovieState.value = MovieState(movie = it.data ?: MovieEntity(0, "", "", "", "0.0"), isLoading = false)
+                    _newMovieState.value = MovieState(movie = it.data ?: MovieEntity(0, "", "", "", "0.0", "", "", "", "", ""), isLoading = false)
                 }
                 is Resources.Error -> {
                     _newMovieState.value = MovieState(error = it.message ?: "An unexpected error", isLoading = false)
@@ -97,27 +97,29 @@ class HomeViewModel(
     private fun fetchFirebaseToken() {
         viewModelScope.launch {
             delay(200L)
-            val tokens = getToken()
+            val tokens = mutableListOf<TokenEntity>()
+            tokens.addAll(getToken())
+
             if (tokens.isNullOrEmpty()){
-                Log.d("SendToken", "Empty Token")
-            } else {
-                FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-                    if (!task.isSuccessful) {
-                        Log.w(ContentValues.TAG, "Fetching FCM registration token failed", task.exception)
-                        return@OnCompleteListener
-                    }
-                    task.result?.let {
-                        for (token in tokens){
-                            if (token.token != it){
-                                Log.d("SendToken", "Token successfully Post")
-                                sendToken(it)
-                            } else{
-                                Log.d("SendToken", "Token Already Posted")
-                            }
+                tokens.add(TokenEntity("test"))
+            }
+
+            FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w(ContentValues.TAG, "Fetching FCM registration token failed", task.exception)
+                    return@OnCompleteListener
+                }
+                task.result?.let {
+                    for (token in tokens){
+                        if (token.token != it){
+                            Log.d("SendToken", "Token successfully Post")
+                            sendToken(it)
+                        } else{
+                            Log.d("SendToken", "Token Already Posted")
                         }
                     }
-                })
-            }
+                }
+            })
         }
     }
 }

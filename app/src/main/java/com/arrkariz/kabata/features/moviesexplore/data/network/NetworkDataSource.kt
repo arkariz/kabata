@@ -8,7 +8,7 @@ import retrofit2.Response
 class NetworkDataSource(
     private val apiService: ApiService
 ) {
-    suspend fun postToken(token: TokenEntity) = apiService.postToken(token)
+    suspend fun postToken(token: TokenEntity): Response<TokenResponse> = apiService.postToken(token)
 
     suspend fun getToken(): Response<List<TokenResponse>> = apiService.getToken()
 

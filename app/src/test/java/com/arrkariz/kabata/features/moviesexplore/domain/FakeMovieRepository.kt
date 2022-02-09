@@ -23,7 +23,7 @@ class FakeMovieRepository(
 
     override suspend fun getMovieList(): Response<List<MovieResponse>> {
         val movie: MutableList<MovieResponse> = mutableListOf()
-        movie.add(MovieResponse(0, "test", "test", "test", "test"))
+        movie.add(MovieResponse(0, "test", "test", "test", "test", "test","test", "test", "test", "test"))
 
         when (getMoviesTest) {
             GetMovieCase.ERROR -> {
@@ -45,7 +45,7 @@ class FakeMovieRepository(
     }
 
     override suspend fun getNewestMovie(): Response<MovieResponse> {
-        val movie = MovieResponse(0, "test", "test", "test", "test",)
+        val movie = MovieResponse(0, "test", "test", "test", "test", "test", "test", "test", "test", "test")
 
         when (getMoviesTest) {
             GetMovieCase.ERROR -> {

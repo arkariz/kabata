@@ -9,7 +9,7 @@ import retrofit2.Response
 
 class MovieRepository(private val networkDataSource: NetworkDataSource): IMovieRepository {
 
-    override suspend fun postToken(token: TokenEntity) = networkDataSource.postToken(token)
+    override suspend fun postToken(token: TokenEntity): Response<TokenResponse> = networkDataSource.postToken(token)
 
     override suspend fun getToken(): Response<List<TokenResponse>> = networkDataSource.getToken()
 

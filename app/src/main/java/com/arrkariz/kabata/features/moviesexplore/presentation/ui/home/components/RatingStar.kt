@@ -14,7 +14,7 @@ import com.arrkariz.kabata.theme.YellowRating
 
 @Composable
 fun ratingStar(
-    movie: MovieEntity
+    star: String
 ) {
     Row(
         modifier = Modifier
@@ -23,13 +23,13 @@ fun ratingStar(
         horizontalArrangement = Arrangement.Start
     ) {
         Text(
-            movie.star,
+            star,
             style = Typography.h3,
             color = YellowRating,
             modifier = Modifier
                 .padding(end = 3.dp)
         )
-        when (movie.star.toFloat()) {
+        when (star.toFloat()) {
             in 1.0f..2.9f -> {
                 Image(
                     painter = painterResource(R.drawable.ic_star_yellow),
