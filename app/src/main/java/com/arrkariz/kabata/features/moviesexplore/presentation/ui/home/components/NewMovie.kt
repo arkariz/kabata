@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.arrkariz.kabata.features.detailmovie.presentation.DetailMovieActivity
@@ -19,7 +20,7 @@ import com.arrkariz.kabata.features.moviesexplore.presentation.state.home.HomeVi
 import com.arrkariz.kabata.theme.Typography
 
 @Composable
-fun newMovie(viewModel: HomeViewModel) {
+fun NewMovie(viewModel: HomeViewModel) {
     val state = viewModel.newMovieState.value
     val context = LocalContext.current
     Column(
@@ -57,6 +58,8 @@ fun newMovie(viewModel: HomeViewModel) {
         Text(
             state.movie.title,
             style = Typography.h2,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier.align(Alignment.Start).padding(top = 3.dp)
         )
     }
