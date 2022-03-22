@@ -6,6 +6,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -68,7 +70,7 @@ fun SimpleOutlinedTextFieldSample() {
     TextField(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 5.dp, start = 24.dp, end = 24.dp)
+            .padding(top = 8.dp, start = 24.dp, end = 24.dp)
             .focusRequester(focusRequester),
         value = text,
         onValueChange = { text = it },
@@ -76,8 +78,15 @@ fun SimpleOutlinedTextFieldSample() {
         shape = CircleShape,
         maxLines = 1,
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-        keyboardActions = KeyboardActions(onDone = {focusManager.clearFocus()}),
+        keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
         textStyle = TextStyle(fontSize = 18.sp),
+        trailingIcon = {
+            IconButton(
+                onClick = {},
+            ) {
+                Icon(Icons.Default.Search, "Search")
+            }
+        },
         colors = TextFieldDefaults.textFieldColors(
             backgroundColor = lightBlack.copy(alpha = 0.3f),
             focusedIndicatorColor = Color.Transparent,

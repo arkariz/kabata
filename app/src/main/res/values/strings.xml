@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">kabata</string>
+    <string name="app_name">KATA</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_activity_detail_movie">DetailMovieActivity</string>
     <string name="cast_disconnect">DetailMovieActivity</string>

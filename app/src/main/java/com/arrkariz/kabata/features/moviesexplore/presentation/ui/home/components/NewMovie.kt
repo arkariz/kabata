@@ -23,7 +23,7 @@ fun newMovie(viewModel: HomeViewModel) {
     val state = viewModel.newMovieState.value
     val context = LocalContext.current
     Column(
-        Modifier.padding(24.dp)
+        Modifier.padding(start = 24.dp, end = 24.dp, bottom = 15.dp, top = 10.dp)
             .fillMaxWidth()
             .clickable {
                 val intent = Intent(context, DetailMovieActivity::class.java)
@@ -41,7 +41,7 @@ fun newMovie(viewModel: HomeViewModel) {
         stateContent(state)
 
         Box(
-            Modifier.height(160.dp)
+            Modifier.height(155.dp)
         ) {
             Image(
                 painter = rememberImagePainter(state.movie.image),
