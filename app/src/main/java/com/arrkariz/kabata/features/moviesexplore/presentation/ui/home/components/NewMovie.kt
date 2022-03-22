@@ -1,4 +1,4 @@
-package com.arrkariz.kabata.features.moviesexplore.presentation.ui.home
+package com.arrkariz.kabata.features.moviesexplore.presentation.ui.home.components
 
 import android.content.Intent
 import androidx.compose.foundation.Image
@@ -17,6 +17,8 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.arrkariz.kabata.features.detailmovie.presentation.DetailMovieActivity
 import com.arrkariz.kabata.features.moviesexplore.presentation.state.home.HomeViewModel
+import com.arrkariz.kabata.features.moviesexplore.presentation.ui.home.StateContent
+import com.arrkariz.kabata.features.moviesexplore.presentation.ui.home.ratingStar
 import com.arrkariz.kabata.theme.Typography
 
 @Composable
@@ -39,7 +41,7 @@ fun NewMovie(viewModel: HomeViewModel) {
             style = Typography.h1
         )
 
-        stateContent(state)
+        StateContent(state)
 
         Box(
             Modifier.height(155.dp)

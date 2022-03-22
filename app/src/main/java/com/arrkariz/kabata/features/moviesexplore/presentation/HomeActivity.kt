@@ -7,8 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
 import coil.annotation.ExperimentalCoilApi
-import com.arrkariz.kabata.features.detailmovie.presentation.ui.detailMovieScreen
-import com.arrkariz.kabata.features.moviesexplore.presentation.ui.home.homeScreen
+import com.arrkariz.kabata.features.moviesexplore.presentation.ui.home.HomeScreen
 import com.arrkariz.kabata.theme.KabataTheme
 
 class HomeActivity : ComponentActivity() {
@@ -20,7 +19,7 @@ class HomeActivity : ComponentActivity() {
             KabataTheme {
                 // A surface container using the 'background' color from the theme
 //                detailMovieScreen()
-                homeScreen()
+                HomeScreen()
             }
         }
     }
@@ -32,6 +31,6 @@ class HomeActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     KabataTheme {
-        homeScreen()
+        HomeScreen()
     }
 }

@@ -8,11 +8,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -23,19 +19,19 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
 import com.arrkariz.kabata.R
-import com.arrkariz.kabata.features.moviesexplore.presentation.state.home.MovieState
 import com.arrkariz.kabata.features.moviesexplore.presentation.state.home.HomeViewModel
+import com.arrkariz.kabata.features.moviesexplore.presentation.state.home.MovieState
+import com.arrkariz.kabata.features.moviesexplore.presentation.ui.home.components.NewMovie
 import com.arrkariz.kabata.theme.lightBlack
 import org.koin.androidx.compose.getViewModel
 
 @ExperimentalCoilApi
 @Composable
-fun homeScreen() {
+fun HomeScreen() {
     val viewModel = getViewModel<HomeViewModel>()
 
     Surface(color = MaterialTheme.colors.background) {
@@ -54,7 +50,7 @@ fun homeScreen() {
             ) {
                 headerApp("Alex")
                 SimpleOutlinedTextFieldSample()
-                newMovie(viewModel)
+                NewMovie(viewModel)
                 popularMovie(viewModel)
             }
         }
@@ -100,7 +96,7 @@ fun SimpleOutlinedTextFieldSample() {
 }
 
 @Composable
-fun stateContent(state: MovieState) {
+fun StateContent(state: MovieState) {
     if (state.isLoading) {
         Box(
             modifier = Modifier
